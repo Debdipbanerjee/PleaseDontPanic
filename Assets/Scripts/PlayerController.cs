@@ -8,11 +8,15 @@ public class PlayerController : MonoBehaviour
     public float speed;
     PhotonView view;
     Animator anim;
+    Health healthScript;
+    LineRenderer rend;
 
     private void Start()
     {
         view = GetComponent<PhotonView>();
         anim = GetComponent<Animator>();
+        healthScript = GetComponent<Health>();
+        rend = GetComponent<LineRenderer>();
     }
 
     private void Update()
@@ -32,8 +36,27 @@ public class PlayerController : MonoBehaviour
             {
                 anim.SetBool("isRunning", true);
             }
+
+            rend.SetPosition(0, transform.position);
+        }
+        else
+        {
+            rend.SetPosition(1, transform.position);
         }
         
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+        if(view.IsMine)
+        {
+            if (collision.tag == "Enemy")
+            {
+                healthScript.TakeDamage();
+            }
+        }
+       
     }
 
 }

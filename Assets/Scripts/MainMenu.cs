@@ -25,10 +25,12 @@ public class MainMenu : MonoBehaviourPunCallbacks
         PhotonNetwork.JoinRoom(joinInput.text);
     }
 
+    
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
         PhotonNetwork.LoadLevel("Game");
-
     }
+        
+
 }
